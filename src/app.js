@@ -28,6 +28,7 @@ app.use(cookieParser())
 // import playlistRouter from './routes/playlist.route.js'
 import uploadMangaChapterRouter from './routes/upload-chapter.route.js'
 import addNewMangaRouter from './routes/add-manga.route.js'
+import readMangaRouter from './routes/read-manga.route.js'
 
 
 import { errorHandler } from './middlewares/error.middlewares.js'
@@ -40,6 +41,7 @@ import { errorHandler } from './middlewares/error.middlewares.js'
 // app.use("/api/v1/v/playlist" , playlistRouter)
 app.use("/api/v1/manga" , uploadMangaChapterRouter)
 app.use("/api/v1/manga/new" , addNewMangaRouter)
+app.use("/api/v1/manga/read" , readMangaRouter)
 
 
 
