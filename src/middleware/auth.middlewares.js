@@ -2,10 +2,8 @@ import jwt from "jsonwebtoken";
 import { User } from "../models/user.models.js";
 import { ApiError } from "../utils/ApiError.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
-import { Video } from "../models/video.models.js";
 import mongoose from "mongoose";
-import { Comment } from "../models/comment.models.js";
-import { Playlist } from "../models/playlist.models.js";
+
 
 export const verifyToken = asyncHandler(async (req, res, next) => {
   const token =
