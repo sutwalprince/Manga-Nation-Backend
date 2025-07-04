@@ -12,7 +12,7 @@ router
   .get(getMangaDetails);
 
 router
-  .route("/:mangaId/:chapterId")
+  .route("/:slug/:chapterId")
   .get(getMangaChapter);
 
 export default router;

@@ -4,18 +4,15 @@ import { asyncHandler } from "../utils/asyncHandler.js";
 import { Manga } from "../models/manga.models.js";
 import { Chapter } from "../models/chapter.models.js";
 
-
 const getMangaDetails = asyncHandler(async function (req, res) {
   const { slug } = req.params;
-console.log(mangaSlug)
   try {
     //   validiation
-    const manga = await Manga.findOne({ slug  });
+    const manga = await Manga.findOne({ slug });
     if (!manga) {
       throw new ApiError(500, "manga not found " + error.message);
     }
 
-    
     return res
       .status(201)
       .json(new ApiResponse(201, manga, "User registered successfully"));
@@ -23,26 +20,27 @@ console.log(mangaSlug)
     throw new ApiError(500, "something went wrong " + error.message);
   }
 });
-
-
 
 const getMangaChapter = asyncHandler(async function (req, res) {
-  const { slug } = req.params;
-console.log(mangaSlug)
+  const { slug, chapterId } = req.params;
+  console.log({slug});
   try {
     //   validiation
-    const manga = await Manga.findOne({ slug  });
+    const manga = await Manga.findOne({ slug } );
     if (!manga) {
       throw new ApiError(500, "manga not found " + error.message);
     }
+    if (manga.chapters.includes(chapterId) === false) {
+      throw new ApiError(404, "chapter not found in this manga");
+    }
+    const chapter = await Chapter.findById(chapterId);
 
-    
     return res
       .status(201)
-      .json(new ApiResponse(201, manga, "User registered successfully"));
+      .json(new ApiResponse(201, chapter, "User registered successfully"));
   } catch (error) {
     throw new ApiError(500, "something went wrong " + error.message);
   }
 });
 
-export { getMangaDetails ,getMangaChapter };
+export { getMangaDetails, getMangaChapter };

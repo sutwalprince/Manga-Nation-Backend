@@ -28,13 +28,19 @@ const mangaSchema = new Schema(
     genres: [
       {
         type: String,
-         trim: true,
+        trim: true,
       },
     ],
     authors: [
       {
         type: String,
         trim: true,
+      },
+    ],
+    chapters: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Chapter",
       },
     ],
     status: {

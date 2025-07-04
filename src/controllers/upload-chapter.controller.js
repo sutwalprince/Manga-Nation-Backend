@@ -29,18 +29,27 @@ const uploadMangaChapter = asyncHandler(async function (req, res) {
         return result.url;
       })
     );
+    
+    
 
-    const newChapter = new Chapter({
+    const newChapter = await Chapter.create({
       mangaSlug,
       chapterNumber,
       title,
       pages,
     });
-    await newChapter.save();
+    
+
+
+    await Manga.findByIdAndUpdate(
+      mangaId,
+      { $push: { chapters: newChapter._id } },
+      { new: true }
+    );
 
     return res
       .status(201)
-      .json(new ApiResponse(201, newChapter, "User registered successfully"));
+      .json(new ApiResponse(201, newChapter, "chapter uploaded successfully"));
   } catch (error) {
     // if (avatar) await deleteFromCloudinary(avatar.public_id);
     // if (coverImage) await deleteFromCloudinary(coverImage.public_id);
