@@ -26,10 +26,11 @@ app.use(cookieParser())
 // import videoRouter from './routes/video.route.js'
 // import commentRouter from './routes/comment.route.js'
 // import playlistRouter from './routes/playlist.route.js'
-// import likeRouter from './routes/like.route.js'
+import uploadMangaChapterRouter from './routes/upload-chapter.route.js'
+import addNewMangaRouter from './routes/add-manga.route.js'
 
 
-// import { errorHandler } from './middlewares/error.middlewares.js'
+import { errorHandler } from './middlewares/error.middlewares.js'
 
 // routes
 // app.use("/api/v1/healthcheck" , healthCheckRouter)
@@ -37,9 +38,10 @@ app.use(cookieParser())
 // app.use("/api/v1/v" , videoRouter)
 // app.use("/api/v1/v/comment" , commentRouter)
 // app.use("/api/v1/v/playlist" , playlistRouter)
-// app.use("/api/v1/v/like" , likeRouter)
+app.use("/api/v1/manga" , uploadMangaChapterRouter)
+app.use("/api/v1/manga/new" , addNewMangaRouter)
 
 
 
-// app.use(errorHandler)
+app.use(errorHandler)
 export {app}
