@@ -4,6 +4,23 @@ import { asyncHandler } from "../utils/asyncHandler.js";
 import { Manga } from "../models/manga.models.js";
 import { Chapter } from "../models/chapter.models.js";
 
+const getAllManga = asyncHandler(async function (req, res) {
+ 
+  try {
+    // get all manga
+    const manga = await Manga.find().sort({ createdAt: -1 });
+
+    if (!manga) {
+      throw new ApiError(500, "manga not found " + error.message);
+    }
+
+    return res
+      .status(201)
+      .json(new ApiResponse(201, manga, "User registered successfully"));
+  } catch (error) {
+    throw new ApiError(500, "something went wrong " + error.message);
+  }
+});
 const getMangaDetails = asyncHandler(async function (req, res) {
   const { slug } = req.params;
   try {
@@ -43,4 +60,4 @@ const getMangaChapter = asyncHandler(async function (req, res) {
   }
 });
 
-export { getMangaDetails, getMangaChapter };
+export { getMangaDetails, getMangaChapter , getAllManga };
