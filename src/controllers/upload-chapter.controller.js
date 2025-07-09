@@ -7,15 +7,18 @@ import {
   uploadOnCloudinary,
   deleteFromCloudinary,
 } from "../utils/cloudinary.js";
-import jwt from "jsonwebtoken";
+
 import mongoose from "mongoose";
 
 const uploadMangaChapter = asyncHandler(async function (req, res) {
   const { chapterNumber, title } = req.body;
-  const { mangaId } = req.params;
+  let { mangaId } = req.params;
 
+  console.log("manga id" ,mangaId)
   try {
-    const mangaSlug = new mongoose.Types.ObjectId(mangaId);
+    // console.log(mangaId)
+    mangaId = new mongoose.Types.ObjectId(mangaId);
+    
     //   validiation
     if ([chapterNumber, title].some((field) => field?.trim() === "")) {
       throw new ApiError(400, "All fields are required ");
@@ -33,7 +36,7 @@ const uploadMangaChapter = asyncHandler(async function (req, res) {
     
 
     const newChapter = await Chapter.create({
-      mangaSlug,
+      mangaId,
       chapterNumber,
       title,
       pages,

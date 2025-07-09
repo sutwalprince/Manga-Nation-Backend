@@ -9,6 +9,11 @@ const mangaSchema = new Schema(
       trim: true,
       index: true,
     },
+    owner: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
     slug: {
       type: String,
       required: true,
@@ -25,18 +30,16 @@ const mangaSchema = new Schema(
       type: String,
       required: true,
     },
-    genres: [
-      {
-        type: String,
-        trim: true,
-      },
-    ],
-    authors: [
-      {
-        type: String,
-        trim: true,
-      },
-    ],
+    genres: {
+      type: String,
+      trim: true,
+    },
+
+    authors: {
+      type: String,
+      trim: true,
+    },
+
     chapters: [
       {
         type: Schema.Types.ObjectId,

@@ -1,7 +1,7 @@
 import mongoose, { Schema } from "mongoose";
 const chapterSchema = new Schema(
   {
-    mangaSlug: {
+    mangaId: {
       type: Schema.Types.ObjectId,
       ref: "Manga",
       required: true,

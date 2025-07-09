@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { addNewManga } from "../controllers/add-manga.controller.js";
 import { upload } from "../middlewares/multer.middlewares.js";
+import { verifyToken } from "../middlewares/auth.middlewares.js";
 
 const router = Router();
 
@@ -8,7 +9,7 @@ const router = Router();
 
 router
   .route("/add-manga")
-  .post(upload.single("coverImage"), addNewManga);
+  .post( verifyToken , upload.single("coverImage"), addNewManga);
 
 // secured routes
 

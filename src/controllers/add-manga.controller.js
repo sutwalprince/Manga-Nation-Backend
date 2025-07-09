@@ -7,8 +7,7 @@ import {
   uploadOnCloudinary,
   deleteFromCloudinary,
 } from "../utils/cloudinary.js";
-import jwt from "jsonwebtoken";
-import mongoose from "mongoose";
+
 
 const addNewManga = asyncHandler(async function (req, res) {
   const {
@@ -20,7 +19,7 @@ const addNewManga = asyncHandler(async function (req, res) {
     status = "Ongoing",
   } = req.body;
 
-  console.log(req.file);
+  console.log(req.body);
   const coverImageLocalPath = req.file.path;
 
   //   validiation
@@ -45,13 +44,13 @@ const addNewManga = asyncHandler(async function (req, res) {
       authors,
       status,
       coverImage,
+      owner : req.user._id, 
     });
+    console.log(newManga , "new manga created");
     return res
       .status(201)
       .json(new ApiResponse(201, newManga, "Manga added successfully"));
   } catch (error) {
-    // if (avatar) await deleteFromCloudinary(avatar.public_id);
-    // if (coverImage) await deleteFromCloudinary(coverImage.public_id);
     throw new ApiError(500, "manga not created " + error.message);
   }
 });
